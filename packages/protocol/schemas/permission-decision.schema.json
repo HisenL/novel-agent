@@ -1,0 +1,88 @@
+{
+  "$id": "https://novel-agent.dev/schemas/v1/permission-decision.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "decidedAt": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "decidedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "anyOf": [
+            {
+              "const": "user",
+              "type": "string"
+            },
+            {
+              "const": "system",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "decisionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "expandedPermissions": {
+      "items": {
+        "maxLength": 160,
+        "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "outcome": {
+      "anyOf": [
+        {
+          "const": "allow",
+          "type": "string"
+        },
+        {
+          "const": "deny",
+          "type": "string"
+        }
+      ]
+    },
+    "policyVersion": {
+      "maxLength": 64,
+      "minLength": 1,
+      "type": "string"
+    },
+    "requestId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "decisionId",
+    "requestId",
+    "outcome",
+    "expandedPermissions",
+    "decidedBy",
+    "policyVersion",
+    "decidedAt"
+  ],
+  "type": "object"
+}

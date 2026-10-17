@@ -1,0 +1,72 @@
+{
+  "$id": "https://novel-agent.dev/schemas/v1/capability-registry.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "capabilities": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "expandsTo": {
+            "items": {
+              "maxLength": 160,
+              "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$",
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "grantable": {
+            "type": "boolean"
+          },
+          "id": {
+            "maxLength": 160,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$",
+            "type": "string"
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "const": "permission",
+                "type": "string"
+              },
+              {
+                "const": "provide",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "description",
+          "grantable"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "registryVersion": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "registryVersion",
+    "capabilities"
+  ],
+  "type": "object"
+}

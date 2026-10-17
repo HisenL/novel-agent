@@ -1,0 +1,400 @@
+{
+  "$id": "https://novel-agent.dev/schemas/v1/json-rpc-message.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "anyOf": [
+    {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "jsonrpc": {
+          "const": "2.0",
+          "type": "string"
+        },
+        "method": {
+          "anyOf": [
+            {
+              "const": "session.create",
+              "type": "string"
+            },
+            {
+              "const": "session.resume",
+              "type": "string"
+            },
+            {
+              "const": "session.fork",
+              "type": "string"
+            },
+            {
+              "const": "session.cancel",
+              "type": "string"
+            },
+            {
+              "const": "turn.start",
+              "type": "string"
+            },
+            {
+              "const": "turn.steer",
+              "type": "string"
+            },
+            {
+              "const": "turn.interrupt",
+              "type": "string"
+            },
+            {
+              "const": "approval.resolve",
+              "type": "string"
+            },
+            {
+              "const": "proposal.accept",
+              "type": "string"
+            },
+            {
+              "const": "proposal.reject",
+              "type": "string"
+            },
+            {
+              "const": "proposal.revise",
+              "type": "string"
+            },
+            {
+              "const": "task.retry",
+              "type": "string"
+            },
+            {
+              "const": "event.subscribe",
+              "type": "string"
+            },
+            {
+              "const": "workspace.create",
+              "type": "string"
+            },
+            {
+              "const": "workspace.open",
+              "type": "string"
+            },
+            {
+              "const": "workspace.list",
+              "type": "string"
+            },
+            {
+              "const": "workspace.read",
+              "type": "string"
+            },
+            {
+              "const": "workspace.save",
+              "type": "string"
+            },
+            {
+              "const": "workspace.export",
+              "type": "string"
+            },
+            {
+              "const": "provider.configure",
+              "type": "string"
+            },
+            {
+              "const": "provider.status",
+              "type": "string"
+            },
+            {
+              "const": "provider.test",
+              "type": "string"
+            },
+            {
+              "const": "session.list",
+              "type": "string"
+            },
+            {
+              "const": "session.get",
+              "type": "string"
+            },
+            {
+              "const": "proposal.get",
+              "type": "string"
+            },
+            {
+              "const": "revision.list",
+              "type": "string"
+            },
+            {
+              "const": "revision.undo",
+              "type": "string"
+            }
+          ]
+        },
+        "params": {
+          "patternProperties": {
+            "^(.*)$": {}
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "jsonrpc",
+        "id",
+        "method"
+      ],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "jsonrpc": {
+          "const": "2.0",
+          "type": "string"
+        },
+        "result": {}
+      },
+      "required": [
+        "jsonrpc",
+        "id",
+        "result"
+      ],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "type": "integer"
+            },
+            "data": {},
+            "message": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "type": "object"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "jsonrpc": {
+          "const": "2.0",
+          "type": "string"
+        }
+      },
+      "required": [
+        "jsonrpc",
+        "id",
+        "error"
+      ],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "jsonrpc": {
+          "const": "2.0",
+          "type": "string"
+        },
+        "method": {
+          "const": "event",
+          "type": "string"
+        },
+        "params": {
+          "$id": "https://novel-agent.dev/schemas/v1/event-envelope.schema.json",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "actor": {
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "maxLength": 128,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "kind": {
+                  "anyOf": [
+                    {
+                      "const": "user",
+                      "type": "string"
+                    },
+                    {
+                      "const": "agent",
+                      "type": "string"
+                    },
+                    {
+                      "const": "tool",
+                      "type": "string"
+                    },
+                    {
+                      "const": "system",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "type": "object"
+            },
+            "causationId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "correlationId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "eventId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "payload": {},
+            "schemaVersion": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "sequence": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "streamId": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "type": {
+              "maxLength": 160,
+              "minLength": 1,
+              "type": "string"
+            },
+            "usage": {
+              "additionalProperties": false,
+              "properties": {
+                "cachedTokens": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "cost": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "amount": {
+                      "minimum": 0,
+                      "type": "number"
+                    },
+                    "currency": {
+                      "pattern": "^[A-Z]{3}$",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "amount",
+                    "currency"
+                  ],
+                  "type": "object"
+                },
+                "inputTokens": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "outputTokens": {
+                  "minimum": 0,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "inputTokens",
+                "outputTokens",
+                "cachedTokens"
+              ],
+              "type": "object"
+            },
+            "visibility": {
+              "anyOf": [
+                {
+                  "const": "author",
+                  "type": "string"
+                },
+                {
+                  "const": "advanced",
+                  "type": "string"
+                },
+                {
+                  "const": "developer",
+                  "type": "string"
+                },
+                {
+                  "const": "secret",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "eventId",
+            "streamId",
+            "sequence",
+            "type",
+            "schemaVersion",
+            "timestamp",
+            "actor",
+            "correlationId",
+            "visibility",
+            "payload"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "jsonrpc",
+        "method",
+        "params"
+      ],
+      "type": "object"
+    }
+  ]
+}

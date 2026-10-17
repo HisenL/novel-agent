@@ -1,0 +1,260 @@
+{
+  "$id": "https://novel-agent.dev/schemas/v1/change-set.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "alternatives": {
+      "items": {
+        "maxLength": 1000,
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "changeSetId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "createdBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "anyOf": [
+            {
+              "const": "user",
+              "type": "string"
+            },
+            {
+              "const": "agent",
+              "type": "string"
+            },
+            {
+              "const": "tool",
+              "type": "string"
+            },
+            {
+              "const": "system",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "estimatedBudget": {
+      "additionalProperties": false,
+      "properties": {
+        "maxCost": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "minimum": 0,
+              "type": "number"
+            },
+            "currency": {
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "amount",
+            "currency"
+          ],
+          "type": "object"
+        },
+        "maxInputTokens": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "maxOutputTokens": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "maxInputTokens",
+        "maxOutputTokens"
+      ],
+      "type": "object"
+    },
+    "evidence": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "contentHash": {
+            "pattern": "^sha256:[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "resourcePath": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "resourcePath",
+          "contentHash"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "expectedEffect": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "type": "string"
+    },
+    "operations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "baseHash": {
+            "anyOf": [
+              {
+                "pattern": "^sha256:[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "candidateRef": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "const": "create",
+                "type": "string"
+              },
+              {
+                "const": "replace",
+                "type": "string"
+              },
+              {
+                "const": "delete",
+                "type": "string"
+              }
+            ]
+          },
+          "operationId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "resourcePath": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "resultHash": {
+            "anyOf": [
+              {
+                "pattern": "^sha256:[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "operationId",
+          "kind",
+          "resourcePath",
+          "baseHash",
+          "resultHash"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "rationale": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "type": "string"
+    },
+    "risks": {
+      "items": {
+        "maxLength": 1000,
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "scope": {
+      "additionalProperties": false,
+      "properties": {
+        "crossScope": {
+          "type": "boolean"
+        },
+        "resourcePaths": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "resourcePaths",
+        "crossScope"
+      ],
+      "type": "object"
+    },
+    "summary": {
+      "maxLength": 500,
+      "minLength": 1,
+      "type": "string"
+    },
+    "workspaceId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "changeSetId",
+    "workspaceId",
+    "summary",
+    "rationale",
+    "expectedEffect",
+    "scope",
+    "evidence",
+    "risks",
+    "alternatives",
+    "estimatedBudget",
+    "operations",
+    "createdAt",
+    "createdBy"
+  ],
+  "type": "object"
+}

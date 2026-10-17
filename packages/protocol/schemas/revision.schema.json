@@ -1,0 +1,128 @@
+{
+  "$id": "https://novel-agent.dev/schemas/v1/revision.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "approvalId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "changeSetId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "externalChangeEventId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "idempotencyKey": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "previousRevisionIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "publishedAt": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "resources": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "contentHash": {
+            "anyOf": [
+              {
+                "pattern": "^sha256:[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "previousHash": {
+            "anyOf": [
+              {
+                "pattern": "^sha256:[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "resourcePath": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "resourcePath",
+          "previousHash",
+          "contentHash"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "revisionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "source": {
+      "anyOf": [
+        {
+          "const": "changeset",
+          "type": "string"
+        },
+        {
+          "const": "external-import",
+          "type": "string"
+        },
+        {
+          "const": "baseline-rebuild",
+          "type": "string"
+        }
+      ]
+    },
+    "undoOfRevisionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "workspaceId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "revisionId",
+    "workspaceId",
+    "source",
+    "previousRevisionIds",
+    "resources",
+    "idempotencyKey",
+    "publishedAt"
+  ],
+  "type": "object"
+}

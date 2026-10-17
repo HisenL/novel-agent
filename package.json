@@ -1,0 +1,38 @@
+{
+  "name": "novel-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Headless-first agent harness for professional novel writing.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "packageManager": "pnpm@11.8.0",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=11 <12"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "schemas:generate": "pnpm --filter @novel-agent/protocol schemas:generate",
+    "schemas:check": "pnpm --filter @novel-agent/protocol schemas:check",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc -b --pretty false && pnpm -r --if-present run typecheck",
+    "check": "pnpm format:check && pnpm schemas:check && pnpm typecheck && pnpm test",
+    "na": "tsc -b && node apps/cli/dist/main.js",
+    "desktop:prepare": "node apps/desktop/scripts/prepare-native.mjs",
+    "desktop:build": "pnpm build && pnpm --filter @novel-agent/desktop build",
+    "desktop:start": "pnpm --filter @novel-agent/desktop start",
+    "desktop:test": "pnpm --filter @novel-agent/desktop test:desktop"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "@vitest/coverage-v8": "3.2.4",
+    "prettier": "3.6.2",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@novel-agent/kernel",
+  "version": "0.1.0",
+  "description": "Broker-owned execution kernel for Novel Agent.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    "./authoring-mode": {
+      "types": "./dist/authoring-mode.d.ts",
+      "import": "./dist/authoring-mode.js"
+    },
+    "./builtin-skills": {
+      "types": "./dist/builtin-skills.d.ts",
+      "import": "./dist/builtin-skills.js"
+    },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -p tsconfig.check.json --noEmit"
+  },
+  "dependencies": {
+    "@novel-agent/event-store": "workspace:*",
+    "@novel-agent/protocol": "workspace:*",
+    "fflate": "0.8.3"
+  }
+}

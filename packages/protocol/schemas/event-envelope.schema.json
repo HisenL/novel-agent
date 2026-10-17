@@ -1,0 +1,153 @@
+{
+  "$id": "https://novel-agent.dev/schemas/v1/event-envelope.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actor": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "anyOf": [
+            {
+              "const": "user",
+              "type": "string"
+            },
+            {
+              "const": "agent",
+              "type": "string"
+            },
+            {
+              "const": "tool",
+              "type": "string"
+            },
+            {
+              "const": "system",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "causationId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "correlationId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "eventId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "payload": {},
+    "schemaVersion": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "sequence": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "streamId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "type": {
+      "maxLength": 160,
+      "minLength": 1,
+      "type": "string"
+    },
+    "usage": {
+      "additionalProperties": false,
+      "properties": {
+        "cachedTokens": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cost": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "minimum": 0,
+              "type": "number"
+            },
+            "currency": {
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "amount",
+            "currency"
+          ],
+          "type": "object"
+        },
+        "inputTokens": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "outputTokens": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "inputTokens",
+        "outputTokens",
+        "cachedTokens"
+      ],
+      "type": "object"
+    },
+    "visibility": {
+      "anyOf": [
+        {
+          "const": "author",
+          "type": "string"
+        },
+        {
+          "const": "advanced",
+          "type": "string"
+        },
+        {
+          "const": "developer",
+          "type": "string"
+        },
+        {
+          "const": "secret",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "eventId",
+    "streamId",
+    "sequence",
+    "type",
+    "schemaVersion",
+    "timestamp",
+    "actor",
+    "correlationId",
+    "visibility",
+    "payload"
+  ],
+  "type": "object"
+}

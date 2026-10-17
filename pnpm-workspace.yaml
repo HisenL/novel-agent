@@ -1,0 +1,23 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "plugins/*"
+  - "examples/*"
+
+engineStrict: true
+preferWorkspacePackages: true
+saveExact: true
+strictPeerDependencies: true
+
+overrides:
+  "@codemirror/state": 6.7.4
+  "@codemirror/view": 6.43.11
+
+allowBuilds:
+  better-sqlite3: false
+  electron: true
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - "@codemirror/commands@6.11.1"
+  - electron@44.4.1

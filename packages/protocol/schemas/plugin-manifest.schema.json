@@ -1,0 +1,233 @@
+{
+  "$id": "https://novel-agent.dev/schemas/v1/plugin-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "compatibility": {
+      "additionalProperties": false,
+      "properties": {
+        "proposal": {
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        },
+        "protocol": {
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        },
+        "workspace": {
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol",
+        "proposal",
+        "workspace"
+      ],
+      "type": "object"
+    },
+    "configSchema": {
+      "maxLength": 1024,
+      "minLength": 1,
+      "type": "string"
+    },
+    "entrypoints": {
+      "additionalProperties": false,
+      "properties": {
+        "contexts": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "evaluators": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "exporters": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "hooks": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "providers": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "renderers": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "runtimes": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "schemas": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "skills": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "tools": {
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "type": "object"
+    },
+    "executionTier": {
+      "anyOf": [
+        {
+          "const": "declarative",
+          "type": "string"
+        },
+        {
+          "const": "trusted",
+          "type": "string"
+        },
+        {
+          "const": "isolated",
+          "type": "string"
+        }
+      ]
+    },
+    "id": {
+      "maxLength": 200,
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+      "type": "string"
+    },
+    "license": {
+      "maxLength": 100,
+      "minLength": 1,
+      "type": "string"
+    },
+    "manifestVersion": {
+      "const": "1",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 1,
+      "type": "string"
+    },
+    "network": {
+      "additionalProperties": false,
+      "properties": {
+        "allow": {
+          "items": {
+            "format": "hostname",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "default": {
+          "const": "deny",
+          "type": "string"
+        }
+      },
+      "required": [
+        "default",
+        "allow"
+      ],
+      "type": "object"
+    },
+    "novelAgent": {
+      "maxLength": 100,
+      "minLength": 1,
+      "type": "string"
+    },
+    "permissions": {
+      "items": {
+        "maxLength": 160,
+        "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "provides": {
+      "items": {
+        "maxLength": 160,
+        "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "manifestVersion",
+    "id",
+    "name",
+    "version",
+    "license",
+    "novelAgent",
+    "executionTier",
+    "entrypoints",
+    "provides",
+    "permissions",
+    "network",
+    "compatibility"
+  ],
+  "type": "object"
+}
