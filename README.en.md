@@ -6,6 +6,27 @@ A local-first desktop agent for novel writing. Discuss ideas, plan scenes, write
 
 **0.1.0 is an early release**, primarily intended for Windows x64. The application interface and detailed documentation are mainly in Simplified Chinese; the README is available in four languages. Distribution is currently source-only.
 
+## Interface preview
+
+The project tree, Markdown editor and writing partner sit side by side, keeping your manuscript and discussion in one workspace.
+
+![Writing workspace: project tree on the left, manuscript editor in the center and writing partner on the right](docs/images/writing-workspace.png)
+
+<details>
+<summary>View the welcome screen and change review</summary>
+
+Welcome screen: create or open a project and start planning, writing or reviewing.
+
+![Welcome screen with project creation, opening and writing task shortcuts](docs/images/welcome.png)
+
+Change review: inspect manuscript differences and execution progress; changes reach the project only after approval.
+
+![Change review showing additions, deletions, proposal details and accept or reject controls](docs/images/change-review.png)
+
+</details>
+
+These screenshots show the Windows client with fictional demo content. The review example uses a local mock model and does not represent the output quality of any particular model. The interface shown is in Simplified Chinese.
+
 ## Features
 
 - Create, open and import local projects; edit Markdown prose and YAML story contracts.
