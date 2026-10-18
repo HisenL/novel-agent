@@ -788,7 +788,7 @@ export function App() {
             <Feather size={19} />
           </span>
           <strong>Novel Agent</strong>
-          <span className="dev-label">创作工作台 · 开发版</span>
+          <span className="dev-label">创作工作台 · 早期版本</span>
         </div>
         <div className="top-actions">
           <button className="text-button" onClick={() => setShowGuide(true)}>

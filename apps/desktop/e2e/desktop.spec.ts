@@ -17,7 +17,8 @@ import { resolve, join, dirname } from "node:path";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
-const executablePath = require("electron") as string;
+const packagedExecutable = process.env.NOVEL_AGENT_E2E_EXECUTABLE;
+const executablePath = packagedExecutable ?? (require("electron") as string);
 const { unzipSync } = createRequire(import.meta.resolve("@novel-agent/kernel"))(
   "fflate",
 ) as { unzipSync(data: Uint8Array): Record<string, Uint8Array> };
@@ -121,11 +122,19 @@ test("desktop: open, configure, tool loop, review, undo, reject, export and reop
   const launch = async (): Promise<ElectronApplication> => {
     const env = { ...process.env, NOVEL_AGENT_TEST_DIR: state };
     delete env.ELECTRON_RUN_AS_NODE;
+    if (packagedExecutable) {
+      env.PATH = join(process.env.SystemRoot ?? "C:\\Windows", "System32");
+      delete env.NODE_PATH;
+      delete env.NODE_OPTIONS;
+    }
     const launched = await electron.launch({
       executablePath,
-      args: [appRoot],
+      args: packagedExecutable ? [] : [appRoot],
       env,
     });
+    expect(await launched.evaluate(({ app }) => app.isPackaged)).toBe(
+      Boolean(packagedExecutable),
+    );
     await launched.evaluate(
       ({ dialog }, paths) => {
         dialog.showOpenDialog = async () => ({
@@ -153,6 +162,7 @@ test("desktop: open, configure, tool loop, review, undo, reject, export and reop
     mkdirSync(shotRoot, { recursive: true });
     const guide = page.getByRole("dialog", { name: "小说创作首次使用向导" });
     await expect(guide).toBeVisible();
+    await expect(guide).toContainText("免安装运行版");
     await expect(guide).toContainText("空文件夹用");
     await expect(guide).toContainText("第 1 / 3 步");
     await guide.getByRole("button", { name: "下一步" }).click();

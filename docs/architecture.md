@@ -51,6 +51,10 @@ Main 使用 Electron 异步 safeStorage 加密密钥，Kernel 为单次操作取
 
 费用使用返回 Token 数与当时配置的可选单价估算，缺失信息标记未知。调用上限不等于完整货币预算预占，失败请求也可能收费。
 
+## 桌面分发与本地设置
+
+Windows 运行版自带 Electron 和 SQLite，不依赖源码目录或系统 Node.js。Main 和界面在 ASAR 中；Kernel 入口及其 SQLite JavaScript 依赖显式解包，原生绑定从只读资源目录加载。客户端设置位于当前用户 `%APPDATA%\Novel Agent`，不在免安装 EXE 的临时解压目录中；作品与账本仍在作者选择的目录。开发版继续使用原设置路径，不自动迁移密钥。详情见 [ADR-0010](adr/0010-windows-distribution.md)。
+
 ## 范围
 
 没有社区可执行插件宿主、MCP 接入、网络服务端或自动更新。Manifest Schema 不代表已实现插件运行能力。安全边界见[威胁模型](security/threat-model.md)。

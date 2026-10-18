@@ -25,7 +25,7 @@ export function QuickStartGuide({ onClose }: { onClose: () => void }) {
       <p aria-live="polite">第 {step + 1} / 3 步</p>
       {step === 0 && (
         <>
-          <p>先准备作品，再连接模型，最后审阅修改。开发版不需要安装包。</p>
+          <p>先准备作品，再连接模型，最后审阅修改。可直接使用免安装运行版。</p>
           <ol>
             <li>
               <strong>选择作品文件夹</strong>
@@ -73,7 +73,7 @@ export function QuickStartGuide({ onClose }: { onClose: () => void }) {
             先解压，再用“新建 / 导入作品”打开。
           </p>
           <p>
-            当前为开发预览。遇到问题请记录操作和错误文字，不要发送 API Key。
+            当前为早期版本。遇到问题请记录操作和错误文字，不要发送 API Key。
           </p>
         </>
       )}

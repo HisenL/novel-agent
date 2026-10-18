@@ -26,12 +26,18 @@ import {
 } from "@novel-agent/kernel";
 import { validateContract } from "@novel-agent/protocol";
 import type { HostState } from "./bridge.js";
+import { resolveDesktopPaths } from "./runtime-paths.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const desktopRoot = resolve(here, "..");
-const localState =
-  process.env.NOVEL_AGENT_TEST_DIR ??
-  resolve(desktopRoot, "../../.novel-agent/desktop");
+const runtimePaths = resolveDesktopPaths({
+  packaged: app.isPackaged,
+  desktopRoot,
+  resourcesRoot: process.resourcesPath,
+  appDataRoot: app.getPath("appData"),
+  testStateDir: process.env.NOVEL_AGENT_TEST_DIR,
+});
+const localState = runtimePaths.localState;
 mkdirSync(localState, { recursive: true });
 app.setPath("userData", localState);
 interface Settings {
@@ -100,13 +106,10 @@ function sendWorker(
   });
 }
 function spawnKernel(): void {
-  const nativeBinding = join(
-    desktopRoot,
-    ".native/node_modules/better-sqlite3/build/Release/better_sqlite3.node",
-  );
+  const nativeBinding = runtimePaths.nativeBinding;
   if (!existsSync(nativeBinding))
     throw new Error("桌面原生依赖尚未准备，请运行开发准备脚本。");
-  worker = utilityProcess.fork(join(here, "worker.js"), [], {
+  worker = utilityProcess.fork(runtimePaths.worker, [], {
     serviceName: "Novel Agent Kernel",
     env: {
       SystemRoot: process.env.SystemRoot ?? "",

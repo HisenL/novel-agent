@@ -1,0 +1,29 @@
+{
+  "appId": "io.github.hisenl.novelagent",
+  "productName": "Novel Agent",
+  "directories": {
+    "app": ".tmp/desktop-package",
+    "output": ".tmp/releases"
+  },
+  "files": ["package.json", "dist/**/*", "node_modules/**/*", "licenses/**/*"],
+  "asar": true,
+  "asarUnpack": ["dist/worker.mjs", "node_modules/**/*"],
+  "extraResources": [
+    {
+      "from": "apps/desktop/.native/node_modules/better-sqlite3/build/Release/better_sqlite3.node",
+      "to": "native/better_sqlite3.node"
+    }
+  ],
+  "npmRebuild": false,
+  "publish": null,
+  "win": {
+    "target": [
+      { "target": "portable", "arch": ["x64"] },
+      { "target": "zip", "arch": ["x64"] }
+    ],
+    "artifactName": "Novel-Agent-${version}-windows-${arch}.${ext}",
+    "signExecutable": false,
+    "requestedExecutionLevel": "asInvoker"
+  },
+  "portable": { "requestExecutionLevel": "user" }
+}

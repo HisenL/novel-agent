@@ -1,11 +1,10 @@
-import { createRequire } from "node:module";
-
 import {
   Ajv2020,
   type ErrorObject,
   type ValidateFunction,
 } from "ajv/dist/2020.js";
 import type { FormatsPlugin } from "ajv-formats";
+import formatsModule from "ajv-formats";
 
 import {
   type EventEnvelope,
@@ -24,8 +23,7 @@ const ajv = new Ajv2020({
   strict: true,
   validateFormats: true,
 });
-const require = createRequire(import.meta.url);
-const addFormats = require("ajv-formats") as FormatsPlugin;
+const addFormats = formatsModule as unknown as FormatsPlugin;
 addFormats(ajv);
 
 const validators = new Map<SchemaName, ValidateFunction>();

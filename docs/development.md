@@ -41,6 +41,21 @@ pnpm desktop:test
 
 Schema 源码变化后运行 `pnpm schemas:generate`，提交生成结果。协议或边界变化需更新[协议](protocol.md)与[架构](architecture.md)，兼容旧版本，不重解释历史字段。
 
+## Windows 分发构建
+
+普通作者直接下载 [Releases](https://github.com/HisenL/novel-agent/releases/latest)，无需执行本节命令。维护者在 Windows x64 安装锁定依赖后运行：
+
+```powershell
+pnpm desktop:prepare
+pnpm desktop:package
+pnpm desktop:test:packaged
+pnpm desktop:test:portable
+```
+
+EXE、ZIP、`SHA256SUMS.txt` 位于 `.tmp/releases/`。打包只使用新建暂存目录中的显式输入，不收集作品、运行设置或 Git 数据。保留第三方许可证；Kernel 入口和 SQLite JavaScript 模块从 ASAR 解包，原生绑定独立携带。
+
+发布标签必须与根目录及桌面包版本一致。`Windows release` 工作流在标签推送时重新构建、执行核心/桌面/ZIP 解压版/单文件 EXE 回归及校验和检查，再由独立权限任务发布 GitHub Release。手动运行工作流只生成验证产物，不发布。边界决策见 [ADR-0010](adr/0010-windows-distribution.md)。
+
 ## CLI
 
 CLI 使用显式 Mock 模型展示机制；真实创作使用桌面端。

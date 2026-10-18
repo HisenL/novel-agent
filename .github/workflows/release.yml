@@ -1,0 +1,105 @@
+name: Windows release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.8.0
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Check tag and product version
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ($env:GITHUB_REF_NAME -ne "v$version") { throw "Tag and product version differ" }
+      - run: pnpm check
+      - run: pnpm desktop:prepare
+      - run: pnpm desktop:build
+      - run: pnpm desktop:test
+      - name: Build self-contained Windows distributions
+        run: pnpm desktop:package
+      - name: Test packaged application without Node.js on PATH
+        run: pnpm desktop:test:packaged
+      - name: Test single-file portable EXE outside the checkout
+        run: pnpm desktop:test:portable
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-distributions
+          path: |
+            .tmp/releases/*.exe
+            .tmp/releases/*.zip
+            .tmp/releases/SHA256SUMS.txt
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload failed test diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-test-diagnostics
+          path: apps/desktop/test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  publish:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-distributions
+          path: release-assets
+      - name: Publish verified artifacts
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('node:fs');
+            const crypto = require('node:crypto');
+            const path = require('node:path');
+            const tag = context.ref.slice('refs/tags/'.length);
+            const version = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
+            if (tag !== `v${version}`) throw new Error('Tag/version mismatch');
+            const expected = ['exe', 'zip'].map(ext => `Novel-Agent-${version}-windows-x64.${ext}`);
+            const lines = fs.readFileSync('release-assets/SHA256SUMS.txt', 'utf8').trim().split('\n');
+            if (lines.length !== expected.length) throw new Error('Unexpected checksum count');
+            for (const name of expected) {
+              const line = lines.find(value => value.endsWith(`  ${name}`));
+              const hash = crypto.createHash('sha256').update(fs.readFileSync(path.join('release-assets', name))).digest('hex');
+              if (!line || line !== `${hash}  ${name}`) throw new Error('Artifact checksum mismatch');
+            }
+            const body = fs.readFileSync(`docs/releases/${version}.md`, 'utf8');
+            const release = await github.rest.repos.createRelease({
+              ...context.repo, tag_name: tag, name: `Novel Agent ${tag} · Windows 免安装版`,
+              body, draft: true, prerelease: false,
+            });
+            for (const name of [...expected, 'SHA256SUMS.txt']) {
+              const data = fs.readFileSync(path.join('release-assets', name));
+              await github.rest.repos.uploadReleaseAsset({
+                ...context.repo, release_id: release.data.id, name, data,
+                headers: { 'content-type': 'application/octet-stream', 'content-length': data.length },
+              });
+            }
+            await github.rest.repos.updateRelease({
+              ...context.repo, release_id: release.data.id, draft: false, make_latest: 'true',
+            });
