@@ -64,7 +64,7 @@ pnpm desktop:start
 
 若安装依赖时 Electron 运行文件未下载，先运行 `node apps/desktop/node_modules/electron/install.js`，再继续准备和构建。
 
-完成准备后，Windows 用户也可以双击根目录的 `启动小说智能体.cmd`。该入口使用本地构建，不自动下载依赖。
+`pnpm desktop:start` 使用已准备好的本地构建，不会在每次启动时重新下载依赖。普通作者请使用上方的免安装下载入口。
 
 ## 开始创作
 

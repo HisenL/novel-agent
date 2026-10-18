@@ -64,7 +64,7 @@ pnpm desktop:start
 
 의존성 설치 중 Electron 실행 파일이 다운로드되지 않았다면 준비와 빌드 전에 `node apps/desktop/node_modules/electron/install.js`를 실행하세요.
 
-준비가 끝나면 Windows에서 루트의 `启动小说智能体.cmd`를 더블 클릭해도 됩니다. 이 실행 파일은 로컬 빌드를 사용하며 의존성을 자동으로 다운로드하지 않습니다.
+`pnpm desktop:start`는 준비된 로컬 빌드를 사용하며 실행할 때마다 의존성을 다운로드하지 않습니다. 소스 코드가 필요 없는 사용자는 위의 실행 프로그램을 이용하세요.
 
 ## 집필 시작
 

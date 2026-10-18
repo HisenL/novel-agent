@@ -64,7 +64,7 @@ pnpm desktop:start
 
 If Electron's runtime was not downloaded during installation, run `node apps/desktop/node_modules/electron/install.js` before preparation and build.
 
-After preparation, Windows users can also double-click `启动小说智能体.cmd` in the project root. This launcher uses the local build and does not download dependencies.
+`pnpm desktop:start` uses the prepared local build without downloading dependencies on each launch. Authors who do not need source code should use the ready-to-run downloads above.
 
 ## Start writing
 
