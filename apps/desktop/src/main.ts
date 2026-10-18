@@ -26,9 +26,16 @@ import {
 } from "@novel-agent/kernel";
 import { validateContract } from "@novel-agent/protocol";
 import type { HostState } from "./bridge.js";
-import { resolveDesktopPaths } from "./runtime-paths.js";
+import {
+  resolveDesktopCodeDirectory,
+  resolveDesktopPaths,
+} from "./runtime-paths.js";
 
-const here = dirname(fileURLToPath(import.meta.url));
+const here = resolveDesktopCodeDirectory(
+  app.isPackaged,
+  process.resourcesPath,
+  dirname(fileURLToPath(import.meta.url)),
+);
 const desktopRoot = resolve(here, "..");
 const runtimePaths = resolveDesktopPaths({
   packaged: app.isPackaged,

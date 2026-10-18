@@ -4,19 +4,19 @@
 
 本地优先的小说创作智能体桌面客户端。围绕作品资料与正文开展多轮讨论、规划、写作和审稿，把模型生成的修改交给作者审阅后再写入正式文件。
 
-当前为 **0.2.0 早期版本**，提供 Windows x64 免安装运行版和源码。客户端界面和详细文档以简体中文为主；本页提供四种语言。
+当前为 **0.2.1 早期版本**，提供 Windows x64 免安装运行版和源码。客户端界面和详细文档以简体中文为主；本页提供四种语言。
 
 ## 直接下载运行（无需源码）
 
 **只想使用程序？前往 [最新版本下载](https://github.com/HisenL/novel-agent/releases/latest)，在 Assets 中下载程序，不要下载 Source code。**
 
-1. 推荐下载 [Windows x64 免安装 EXE](https://github.com/HisenL/novel-agent/releases/download/v0.2.0/Novel-Agent-0.2.0-windows-x64.exe)，双击即可启动，无需安装 Node.js、pnpm 或 Git，也无需管理员权限。
-2. 备用：[Windows x64 ZIP](https://github.com/HisenL/novel-agent/releases/download/v0.2.0/Novel-Agent-0.2.0-windows-x64.zip)。**完整解压**后双击 `Novel Agent.exe`；不要只复制 EXE，不要在压缩包里运行。
+1. 推荐下载 [Windows x64 免安装 EXE](https://github.com/HisenL/novel-agent/releases/download/v0.2.1/Novel-Agent-0.2.1-windows-x64.exe)，双击即可启动，无需安装 Node.js、pnpm 或 Git，也无需管理员权限。
+2. 备用：[Windows x64 ZIP](https://github.com/HisenL/novel-agent/releases/download/v0.2.1/Novel-Agent-0.2.1-windows-x64.zip)。**完整解压**后双击 `Novel Agent.exe`；不要只复制 EXE，不要在压缩包里运行。
 3. 在客户端配置自己的模型服务并测试连接，再新建或打开作品。程序不附带 API Key 或本地大模型；在线创作仍需网络，模型调用可能收费。
 
 模型设置保存在 `%APPDATA%\Novel Agent`，正文和任务历史保存在你选择的作品文件夹。升级时保存并关闭旧版，下载新版再运行，不删除设置或作品。源码版设置不会自动迁移，请重新配置模型后打开原作品。
 
-本版尚未代码签名，Windows 可能提示未知发布者。只从本仓库 Releases 下载，可对照同页 `SHA256SUMS.txt` 校验完整性；不要关闭系统安全防护。详见[版本说明](docs/releases/0.2.0.md)。
+本版尚未代码签名，Windows 可能提示未知发布者。只从本仓库 Releases 下载，可对照同页 `SHA256SUMS.txt` 校验完整性；不要关闭系统安全防护。详见[版本说明](docs/releases/0.2.1.md)。
 
 ## 界面预览
 

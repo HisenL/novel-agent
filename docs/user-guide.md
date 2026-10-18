@@ -4,7 +4,7 @@
 
 ## 启动与模型
 
-普通用户从[最新版本](https://github.com/HisenL/novel-agent/releases/latest)的 Assets 下载 Windows x64 EXE，双击运行；或将 ZIP 完整解压后运行 `Novel Agent.exe`。无需 Node.js、pnpm 或源码。不要选择 Source code。程序尚未代码签名，请核对下载来源及 `SHA256SUMS.txt`，不要关闭系统防护。详细操作见[版本说明](releases/0.2.0.md)。
+普通用户从[最新版本](https://github.com/HisenL/novel-agent/releases/latest)的 Assets 下载 Windows x64 EXE，双击运行；或将 ZIP 完整解压后运行 `Novel Agent.exe`。无需 Node.js、pnpm 或源码。不要选择 Source code。程序尚未代码签名，请核对下载来源及 `SHA256SUMS.txt`，不要关闭系统防护。详细操作见[版本说明](releases/0.2.1.md)。
 
 开发者仍可按[开发与验证](development.md)准备源码后，运行 `pnpm desktop:start`。首次向导之后仍可从“使用指南”打开。
 

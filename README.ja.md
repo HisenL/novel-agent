@@ -4,19 +4,19 @@
 
 ローカルの作品ファイルを中心に、小説の構想、場面の計画、執筆、推敲を行うデスクトップ型エージェントです。モデルが提案した変更は、作者が確認して承認した後に正式な原稿へ反映されます。
 
-**0.2.0 は初期リリース**で、Windows x64 向けの実行版とソースコードを提供しています。アプリの画面と詳細ドキュメントは主に簡体字中国語です。README は 4 言語に対応しています。
+**0.2.1 は初期リリース**で、Windows x64 向けの実行版とソースコードを提供しています。アプリの画面と詳細ドキュメントは主に簡体字中国語です。README は 4 言語に対応しています。
 
 ## ダウンロードして実行（ソースコード不要）
 
 **アプリを使う場合は [最新リリース](https://github.com/HisenL/novel-agent/releases/latest) の Assets から実行版を選んでください。Source code は実行版ではありません。**
 
-1. 推奨：[Windows x64 ポータブル EXE](https://github.com/HisenL/novel-agent/releases/download/v0.2.0/Novel-Agent-0.2.0-windows-x64.exe) をダウンロードし、ダブルクリックします。Node.js、pnpm、Git、管理者権限は不要です。
-2. 代替：[Windows x64 ZIP](https://github.com/HisenL/novel-agent/releases/download/v0.2.0/Novel-Agent-0.2.0-windows-x64.zip) を**すべて展開**し、`Novel Agent.exe` を起動します。EXE だけを移動したり、ZIP 内で実行したりしないでください。
+1. 推奨：[Windows x64 ポータブル EXE](https://github.com/HisenL/novel-agent/releases/download/v0.2.1/Novel-Agent-0.2.1-windows-x64.exe) をダウンロードし、ダブルクリックします。Node.js、pnpm、Git、管理者権限は不要です。
+2. 代替：[Windows x64 ZIP](https://github.com/HisenL/novel-agent/releases/download/v0.2.1/Novel-Agent-0.2.1-windows-x64.zip) を**すべて展開**し、`Novel Agent.exe` を起動します。EXE だけを移動したり、ZIP 内で実行したりしないでください。
 3. アプリで自分のモデルサービスを設定して接続をテストし、作品を作成・読み込みします。API キーやローカルモデルは付属しません。オンラインのモデル呼び出しには接続と料金が必要になる場合があります。
 
 アプリ設定は `%APPDATA%\Novel Agent`、原稿とタスク履歴は選択した作品フォルダーに保存されます。更新時は保存して旧版を終了し、新版を起動してください。設定や作品を削除する必要はありません。ソース版の設定は自動移行しないため、モデルを再設定して既存作品を開いてください。
 
-本版はコード署名がなく、Windows が発行元不明と表示する場合があります。本リポジトリの Releases からダウンロードし、`SHA256SUMS.txt` と照合してください。システムの保護機能を無効にしないでください。[リリースノート](docs/releases/0.2.0.md)も参照してください。
+本版はコード署名がなく、Windows が発行元不明と表示する場合があります。本リポジトリの Releases からダウンロードし、`SHA256SUMS.txt` と照合してください。システムの保護機能を無効にしないでください。[リリースノート](docs/releases/0.2.1.md)も参照してください。
 
 ## 画面プレビュー
 

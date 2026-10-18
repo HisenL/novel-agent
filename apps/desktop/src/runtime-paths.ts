@@ -1,4 +1,17 @@
 import { join, resolve } from "node:path";
+import { realpathSync } from "node:fs";
+
+export function resolveDesktopCodeDirectory(
+  packaged: boolean,
+  resourcesRoot: string,
+  developmentDirectory: string,
+): string {
+  // Chromium canonicalizes Windows 8.3 paths. Build the allowlist and load URL
+  // from the same real resource directory; do not broaden the resource policy.
+  return packaged
+    ? join(realpathSync.native(resourcesRoot), "app.asar/dist")
+    : realpathSync.native(developmentDirectory);
+}
 
 interface DesktopPathOptions {
   packaged: boolean;

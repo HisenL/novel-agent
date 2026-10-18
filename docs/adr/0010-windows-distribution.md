@@ -9,6 +9,8 @@ Distribute Windows x64 as a self-extracting portable EXE and a ZIP with the same
 
 Package only a newly generated staging directory with explicit inputs. Keep the Kernel Utility Process entry and its required SQLite JavaScript modules outside ASAR; load the native binary from a dedicated resources directory. Do not package development settings, API keys, workspaces, Git history or test databases.
 
+Canonicalize the physical resources directory before constructing the renderer entry URL, file-request allowlist and preload location. Windows 8.3 aliases must resolve to the same code location as normal paths; retain exact sender checks and the existing local-resource allowlist. Distribution regressions explicitly launch through short paths when the filesystem supplies them.
+
 Released clients keep encrypted model settings and recent-project metadata in the current Windows user's `%APPDATA%\Novel Agent`, not inside application resources or the portable extractor's temporary directory. Story files and ledgers remain in the author-selected workspace. Development settings keep their existing location; no implicit import of a development user's credentials is performed. Tests use a separate explicit temporary state directory.
 
 Publication requires source checks, desktop regression, regressions for both the extracted ZIP and the single-file portable EXE outside the checkout with no development tools on their PATH, artifact integrity checks and SHA-256 sums. A tag-triggered GitHub workflow builds with read-only permissions and uses a separate publication job to attach checked artifacts to a release. It creates a draft first and publishes only after all uploads succeed.

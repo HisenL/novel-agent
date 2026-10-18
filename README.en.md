@@ -4,19 +4,19 @@
 
 A local-first desktop agent for novel writing. Discuss ideas, plan scenes, write and review prose using your story files, then approve proposed changes before they become accepted content.
 
-**0.2.0 is an early release**, available as a ready-to-run Windows x64 application and source code. The application interface and detailed documentation are mainly in Simplified Chinese; the README is available in four languages.
+**0.2.1 is an early release**, available as a ready-to-run Windows x64 application and source code. The application interface and detailed documentation are mainly in Simplified Chinese; the README is available in four languages.
 
 ## Download and run (no source code required)
 
 **Just want the application? Open [the latest release](https://github.com/HisenL/novel-agent/releases/latest) and download an application under Assets, not Source code.**
 
-1. Recommended: download the [Windows x64 portable EXE](https://github.com/HisenL/novel-agent/releases/download/v0.2.0/Novel-Agent-0.2.0-windows-x64.exe) and double-click it. No Node.js, pnpm, Git or administrator access is required.
-2. Alternative: download the [Windows x64 ZIP](https://github.com/HisenL/novel-agent/releases/download/v0.2.0/Novel-Agent-0.2.0-windows-x64.zip), **extract the entire archive**, then launch `Novel Agent.exe`. Keep its companion files; do not run inside the archive.
+1. Recommended: download the [Windows x64 portable EXE](https://github.com/HisenL/novel-agent/releases/download/v0.2.1/Novel-Agent-0.2.1-windows-x64.exe) and double-click it. No Node.js, pnpm, Git or administrator access is required.
+2. Alternative: download the [Windows x64 ZIP](https://github.com/HisenL/novel-agent/releases/download/v0.2.1/Novel-Agent-0.2.1-windows-x64.zip), **extract the entire archive**, then launch `Novel Agent.exe`. Keep its companion files; do not run inside the archive.
 3. Configure your own model service, test the connection, and create or open a project. No API key or local language model is included. Online writing requires a connection and model calls may incur charges.
 
 Client settings persist in `%APPDATA%\Novel Agent`; manuscripts and task history stay in your chosen project folder. To upgrade, save and close the old client and run the new download without deleting settings or projects. Source-edition settings are not imported automatically: configure the model again and open your existing project.
 
-This release is unsigned, so Windows may identify an unknown publisher. Download only from this repository's Releases and compare against `SHA256SUMS.txt`; do not disable system security protections. See the [release notes](docs/releases/0.2.0.md).
+This release is unsigned, so Windows may identify an unknown publisher. Download only from this repository's Releases and compare against `SHA256SUMS.txt`; do not disable system security protections. See the [release notes](docs/releases/0.2.1.md).
 
 ## Interface preview
 

@@ -1,6 +1,6 @@
 {
   "name": "novel-agent",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "Headless-first agent harness for professional novel writing.",
   "license": "Apache-2.0",

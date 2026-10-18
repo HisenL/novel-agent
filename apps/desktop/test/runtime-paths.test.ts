@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { join, resolve } from "node:path";
-import { resolveDesktopPaths } from "../src/runtime-paths.js";
+import { mkdirSync, mkdtempSync, realpathSync } from "node:fs";
+import { tmpdir } from "node:os";
+import {
+  resolveDesktopCodeDirectory,
+  resolveDesktopPaths,
+} from "../src/runtime-paths.js";
 
 const options = {
   packaged: false,
@@ -10,6 +15,26 @@ const options = {
 };
 
 describe("desktop runtime locations", () => {
+  it("canonicalizes the physical resource parent before constructing virtual ASAR URLs", () => {
+    const temporary = mkdtempSync(join(tmpdir(), "novel-agent-resource-path-"));
+    const resources = join(temporary, "Resources");
+    mkdirSync(resources);
+    const alias =
+      process.platform === "win32"
+        ? resources.toUpperCase()
+        : join(resources, ".");
+    expect(resolveDesktopCodeDirectory(true, alias, temporary)).toBe(
+      join(realpathSync.native(resources), "app.asar/dist"),
+    );
+  });
+
+  it("keeps development entry URLs on the canonical physical directory", () => {
+    const directory = mkdtempSync(join(tmpdir(), "novel-agent-dev-entry-"));
+    expect(resolveDesktopCodeDirectory(false, directory, directory)).toBe(
+      realpathSync.native(directory),
+    );
+  });
+
   it("preserves development settings and native binding locations", () => {
     const paths = resolveDesktopPaths(options);
     expect(paths.localState).toBe(resolve("checkout/.novel-agent/desktop"));
