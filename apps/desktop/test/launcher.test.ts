@@ -16,8 +16,8 @@ it.skipIf(process.platform !== "win32")(
       new URL("../../../scripts/launch-desktop.ps1", import.meta.url),
       script,
     );
-    const check = () =>
-      spawnSync(
+    const check = () => {
+      const result = spawnSync(
         "powershell.exe",
         [
           "-NoProfile",
@@ -28,8 +28,14 @@ it.skipIf(process.platform !== "win32")(
           script,
           "-CheckOnly",
         ],
-        { encoding: "utf8", timeout: 10000 },
+        { encoding: "utf8", timeout: 30000 },
       );
+      expect(
+        result.error,
+        "PowerShell file checks must complete",
+      ).toBeUndefined();
+      return result;
+    };
     expect(check().status).toBe(1);
     for (const file of [
       "node_modules/electron/dist/electron.exe",
@@ -47,5 +53,5 @@ it.skipIf(process.platform !== "win32")(
     expect(ready.status).toBe(0);
     expect(ready.stdout.trim()).toBe("READY");
   },
-  20000,
+  90000,
 );

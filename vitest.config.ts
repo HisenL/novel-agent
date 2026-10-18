@@ -19,6 +19,9 @@ export default defineConfig({
     },
   },
   test: {
+    // Shared Windows runners contend on process startup and durable SQLite writes.
+    maxWorkers: 2,
+    testTimeout: process.platform === "win32" ? 15000 : 5000,
     coverage: {
       include: ["packages/*/src/**/*.ts", "apps/*/src/**/*.ts"],
       provider: "v8",
